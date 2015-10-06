@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="uStates.js"></script> <!-- creates uStates. -->
+<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+	function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
+		return "<h4>"+n+"</h4><table>"+
+			// "<tr><td>MP2.5</td><td>"+d.mp2+"</td></tr>"+
+			// "<tr><td>MP10</td><td>"+d.mp1+"</td></tr>"+
+			// "<tr><td>Poblacion_Hombres</td><td>"+d.ph+"</td></tr>"+
+			// "<tr><td>Poblacion_Mujeres</td><td>"+d.pm+"</td></tr>"+
+			// "<tr><td>Pobreza</td><td>"+d.pb+"</td></tr>"+
+			// "<tr><td>Llegan_Adultos</td><td>"+d.lla+"</td></tr>"+
+			// "<tr><td>Llegan_Niños</td><td>"+lln+"</td></tr>"+
+			// "<tr><td>Llegan_por_Trabajo</td><td>"+d.agh+"</td></tr>"+
+			// "<tr><td>Salen_Adultos</td><td>"+sa+"</td></tr>"+
+			// "<tr><td>Salen_Niños</td><td>"+san+"</td></tr>"+
+			// "<tr><td>Salen_por_Trabajo</td><td>"+sal+"</td></tr>"+
+			"</table>";
+	}
+	
+	var sampleData ={};	/* Sample random data. */	
+	["SB","PH","MP","CR","EC","PD","LP","CN","ST","RN","QN","PN","LC","VT","LB","HC","RC","IN","QL","CNC","EB","LC","LE","AC","SM","SR","LG","SJ","LPN","PV","ÑÑ","LR","MC","PA","PQ","JDM","LF"]
+		.forEach(function(d){ 
+			var 
+		        low=Math.round(100*Math.random()), 
+				mid=Math.round(100*Math.random()), 
+				high=Math.round(100*Math.random());
+			sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
+					avg:Math.round((low+mid+high)/3), color:d3.interpolate("#FF0000", "#FFBBBB")(low/100)}; 
+		});
+	
+	/* draw states on id #statesvg */	
+	uStates.draw("#statesvg", sampleData, tooltipHtml);
+</script>
+
+</body>
